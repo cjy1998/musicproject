@@ -123,14 +123,14 @@
             <div align="center">删除不可恢复，是否确定删除？</div>
             <span slot="footer">
                 <el-button size="mini" @click="delVisible = false">取消</el-button>
-                <el-button size="mini" @click="deleteRow">确定</el-button>                
+                <el-button size="mini" @click="deletRow">确定</el-button>                
             </span>
         </el-dialog>
     </div>
 </template>
 
 <script>
-import { mixin } from '../mixins/index';
+import {mixin} from '../mixins/index';
 import {mapGetters} from 'vuex';
 import '@/assets/js/iconfont.js';
 import {songOfSingerId,updateSong,delSong} from '../api/index';
@@ -215,7 +215,7 @@ export default {
         },
         //添加歌手
         addSong(){
-            // let _this = this;
+            let _this = this;
             var form = new FormData(document.getElementById('tf'));
             form.append('singerId',this.singerId);
             form.set('name',this.singerName+'-'+form.get('name'));
@@ -230,11 +230,11 @@ export default {
 
                     let res = JSON.parse(req.response);
                     if(res.code){
-                       this.getData();
-                        this.registerForm = {};
-                        this.notify(res.msg,'success');
+                       _this.getData();
+                        _this.registerForm = {};
+                        _this.notify(res.msg,'success');
                     }else{
-                         this.notify('保存失败','error');
+                         _this.notify('保存失败','error');
                     }
                 }
             }
@@ -280,7 +280,7 @@ export default {
             return `${this.$store.state.HOST}/song/updateSongPic?id=${id}`
         },
         //删除一名歌手
-        deleteRow(){
+        deletRow(){
             delSong(this.idx)
             .then(res => {
                 if(res){
