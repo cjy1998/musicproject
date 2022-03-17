@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.music.dao.CollectMapper">
+    <resultMap id="BaseResultMap" type="com.cjy.music.domain.Collect" >
+<!-- jdbcType指的是数据库里边的字段类型，property指的是daomain里边的java实体类-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+
+<!--它可以将查询到的复杂数据（比如查询到几个表中数据）
+映射到一个结果集当中。如在实际应用中，有一个表为（用户角色表），
+通过查询用户表信息展示页面，在（用户表）中存在用户角色表 id ，
+在实际列表页的展示中，用户关注的是用户角色名称，而不是角色 id。
+解决此类问题可以通过 resultMap 来映射自定义结果。
+ 使用 resultMap 做自定义结果映射，字段名可以不一致，
+并且还可以指定要显示的列，比较灵活，应用也广泛(推荐使用)。-->
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,user_id,type,song_id,song_list_id,create_time
+    </sql>
+    <insert id="insert" parameterType="com.cjy.music.domain.Collect">
+        insert into collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="songId != null">
+                song_id,
+            </if>
+            <if test="songListId != null">
+                song_list_id,
+            </if>
+            create_time,
+
+        </trim>
+
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="songId != null">
+                #{songId},
+            </if>
+            <if test="songListId != null">
+                #{songListId},
+            </if>
+            now(),
+        </trim>
+    </insert>
+
+
+
+    <delete id="delete" >
+        delete from collect
+        where id=#{id}
+    </delete>
+
+    <delete id="deleteUserIdSongId" parameterType="java.lang.Integer">
+        delete from collect
+        where user_id = #{userId} and song_id = #{songId}
+    </delete>
+
+    <select id="allCollect" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from collect
+    </select>
+
+    <select id="collectOfUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from collect
+        where user_id = #{userId}
+    </select>
+
+    <select id="existSongId" resultType="java.lang.Integer" >
+        select count(*)
+        from collect
+        where user_id = #{userId} and song_id = #{songId}
+    </select>
+</mapper>

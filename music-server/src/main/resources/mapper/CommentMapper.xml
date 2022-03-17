@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.music.dao.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.cjy.music.domain.Comment" >
+<!-- jdbcType指的是数据库里边的字段类型，property指的是daomain里边的java实体类-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="up" jdbcType="INTEGER" property="up"/>
+
+<!--它可以将查询到的复杂数据（比如查询到几个表中数据）
+映射到一个结果集当中。如在实际应用中，有一个表为（用户角色表），
+通过查询用户表信息展示页面，在（用户表）中存在用户角色表 id ，
+在实际列表页的展示中，用户关注的是用户角色名称，而不是角色 id。
+解决此类问题可以通过 resultMap 来映射自定义结果。
+ 使用 resultMap 做自定义结果映射，字段名可以不一致，
+并且还可以指定要显示的列，比较灵活，应用也广泛(推荐使用)。-->
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,user_id,type,song_id,song_list_id,content,create_time,up
+    </sql>
+    <insert id="insert" parameterType="com.cjy.music.domain.Comment">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="songId != null">
+                song_id,
+            </if>
+            <if test="songListId != null">
+                song_list_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            create_time,
+            <if test="up != null">
+               up,
+            </if>
+        </trim>
+
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="songId != null">
+                #{songId},
+            </if>
+            <if test="songListId != null">
+                #{songListId},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            now(),
+            <if test="up != null">
+                #{up},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.cjy.music.domain.Comment">
+        update comment
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="songId != null">
+                song_id = #{songId},
+            </if>
+            <if test="songListId != null">
+                song_list_id = #{songListId},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="up != null">
+                up = #{up},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from comment
+        where id=#{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where id=#{id}
+    </select>
+
+    <select id="allComment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+    </select>
+
+    <select id="commentOfSongId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where song_id = #{songId}
+    </select>
+
+    <select id="commentOfSongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where song_list_id = #{songListId}
+    </select>
+</mapper>

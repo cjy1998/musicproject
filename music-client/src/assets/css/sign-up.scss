@@ -2,13 +2,22 @@
 @import "global.scss";
 
 .signUp {
+  
   position: absolute;
-  top: $header-height + 20px;
-  background-color: $color-white;
+  margin-left: 40%;
+  width: 300px;
+
+  top: $header-height + 60px;
+  padding: 30px 50px;
   border-radius: 10px;
-  width: 350px;
-  margin-left: 850px;
-  padding: 30px 30px;
+
+  box-shadow:
+  1.6px 4.2px 3.9px rgba(0, 0, 0, 0.047),
+  4px 10.5px 9.8px rgba(0, 0, 0, 0.067),
+  8.2px 21.4px 20px rgba(0, 0, 0, 0.083),
+  16.8px 44.2px 41.2px rgba(0, 0, 0, 0.103),
+  46px 121px 113px rgba(0, 0, 0, 0.15)
+;
 
   .signUp-head {
     text-align: center;

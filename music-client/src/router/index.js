@@ -5,7 +5,12 @@ import MyMusic from '@/pages/MyMusic'
 import Singer from '@/pages/Singer'
 import SongList from '@/pages/SongList'
 import Search from '@/pages/Search'
-
+import lyric from '../pages/Lyric.vue'
+import Login from '../pages/LoginIn.vue'
+import SignUp from '../pages/SignUp.vue';
+import Setting from '../pages/Setting.vue'
+import SingerAlbum from '../pages/SingerAlbum.vue'
+import SongListAlbum from '../pages/SongListAlbum.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -34,7 +39,38 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '/lyric',
+      name: 'lyric',
+      component: lyric
+    },
+    {
+      path: '/login-in',
+      name: 'login-in',
+      component: Login
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: SignUp
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: Setting
+    },
+    {
+      path: '/singer-album/:id',
+      name: 'song-list-album',
+      component: SingerAlbum
+    },
+    {
+      path: '/song-list-album/:id',
+      name: 'song-list-album',
+      component: SongListAlbum
     }
+
     
   ],
   scrollBehavior (to, from, savedPosition) {

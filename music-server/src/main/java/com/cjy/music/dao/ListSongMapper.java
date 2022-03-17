@@ -1,49 +1,45 @@
 package com.cjy.music.dao;
 
-import com.cjy.music.domain.Song;
+import com.cjy.music.domain.ListSong;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
 /**
- * 歌手Dao
+ * 歌单里的歌曲Dao
  */
 @Repository
-public interface SongMapper {
+public interface ListSongMapper {
     /**
      *增加
      */
-    public int insert(Song song);
+    public int insert(ListSong listSong);
 
     /**
      *修改
      */
-    public int update(Song song);
+    public int update(ListSong listSong);
 
     /**
      * 删除
      */
     public int delete(Integer id);
-
+    //根据歌曲id和歌单id删除
+    public int deleteBySongIdAndSongListId(Integer songId,Integer songListId);
     /**
      * 根据主键查询整个对象
      */
-    public Song selectByPrimaryKey(Integer id);
+    public ListSong selectByPrimaryKey(Integer id);
 
     /**
-     * 查询所有歌曲
+     * 查询所有歌单里歌曲
      */
-    public List<Song> allSong();
+    public List<ListSong> allListSong();
 
     /**
-     * 根据歌名模糊查询列表
+     * 根据歌单id查询所有该歌单下的歌曲
      */
-    public List<Song> songOfName(String name);
-
-    /**
-     * 根据歌手id查询
-     */
-    public List<Song> songOfSingerId(Integer singerId);
+    public List<ListSong> listSongOfSongListId(Integer songListId);
 }
 

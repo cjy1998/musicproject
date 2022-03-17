@@ -34,6 +34,11 @@
                     <el-button size="mini" @click="songEdit(scope.row.id)">歌曲管理</el-button> 
                 </template>
             </el-table-column>
+             <el-table-column label="评论" width="80px" align="center">
+                <template slot-scope="scope">
+                <el-button size="mini" @click="getComment(scope.row.id)">收藏</el-button>
+            </template>
+            </el-table-column>
             <el-table-column label="操作" width="150px" align="center">
                 <template slot-scope="scope">
                    <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button> 
@@ -280,7 +285,11 @@ select_word: function(){
     //转向歌曲管理页面
     songEdit(id,name){
             this.$router.push({path:`/ListSong`,query:{id}});
-    }
+    },
+    //转向该用户的评论列表
+        getComment(id){
+            this.$router.push({path: '/comment',query:{id}})
+        }
     }
 }
 </script>

@@ -3,6 +3,7 @@
        <h1 class="title">
            <slot name="title"></slot>
        </h1>
+       <hr>
        <ul>
            <li>
                <div class="song-item">

@@ -49,3 +49,12 @@ export const setConsumer = (params) => post(`consumer/add`,params);
 export const updateConsumer = (params) => post(`consumer/update`,params);
 //删除用户
 export const delConsumer = (id) => get(`consumer/delete?id=${id}`);
+//***************收藏 */
+export const getCollectOfUserId = (userId) => get(`collect/collectOfUserId?userId=${userId}`)
+export const deleteCollection = (userId,songId) => get(`collect/delete?userId=${userId}&songId=${songId}`)
+//***************评论*/
+export const getCommentOfSongListId = (songListId) => get(`comment/commentOfSongListId?songListId=${songListId}`)
+export const deleteComment = (id) => get(`comment/delete?id=${id}`)
+//根据用户id查询用户的详细信息
+
+export const getUserOfId = (id) => get(`consumer/selectByPrimaryKey?id=${id}`)

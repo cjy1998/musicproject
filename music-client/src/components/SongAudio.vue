@@ -74,6 +74,6 @@
 </script>
 <style>
 .song-audio{
-    display: inline;
+    display: none;
 }
 </style>

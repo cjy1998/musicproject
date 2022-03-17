@@ -2,138 +2,89 @@
 <!DOCTYPE mapper PUBLIC
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cjy.music.dao.SongMapper">
-    <resultMap id="BaseResultMap" type="com.cjy.music.domain.Song" >
+<mapper namespace="com.cjy.music.dao.ListSongMapper">
+    <resultMap id="BaseResultMap" type="com.cjy.music.domain.ListSong" >
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="singer_id" jdbcType="VARCHAR" property="singerId"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="pic" jdbcType="VARCHAR" property="pic"/>
-        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
     </resultMap>
-
-    <resultMap id="ResultMapWithBLOBs" type="com.cjy.music.domain.Song" extends="BaseResultMap">
-        <result column="lyric" jdbcType="LONGVARCHAR" property="lyric"/>
-    </resultMap>
+    
 
     <sql id="Base_Column_List">
-        id,singer_id,name,introduction,create_time,update_time,pic,url
+        id,song_id,song_list_id
     </sql>
 
-    <sql id="Blob_Column_List">
-        id,singer_id,name,introduction,create_time,update_time,pic,lyric,url
-    </sql>
+   
 
-    <insert id="insert" parameterType="com.cjy.music.domain.Song">
-        insert into song
+    <insert id="insert" parameterType="com.cjy.music.domain.ListSong">
+        insert into list_song
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
-            <if test="singerId != null">
-                singer_id,
+            <if test="songId != null">
+                song_id,
             </if>
-            <if test="name != null">
-                name,
+            <if test="songListId != null">
+                song_list_id,
             </if>
-            <if test="introduction != null">
-                introduction,
-            </if>
-            create_time,update_time,
-            <if test="pic != null">
-                pic,
-            </if>
-            <if test="lyric != null">
-                lyric,
-            </if>
-            <if test="url != null">
-                url,
-            </if>
+           
         </trim>
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 #{id},
             </if>
-            <if test="singerId != null">
-                #{singerId},
+            <if test="songId != null">
+                #{songId},
             </if>
-            <if test="name != null">
-                #{name},
-            </if>
-            <if test="introduction != null">
-                #{introduction},
-            </if>
-            now(),now(),
-            <if test="pic != null">
-                #{pic},
-            </if>
-            <if test="lyric != null">
-                #{lyric},
-            </if>
-            <if test="url != null">
-                #{url},
+            <if test="songListId != null">
+                #{songListId},
             </if>
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cjy.music.domain.Song">
-        update song
+    <update id="update" parameterType="com.cjy.music.domain.ListSong">
+        update list_song
         <set>
-            <if test="singerId != null">
-                singer_id = #{singerId},
+            <if test="songId != null">
+                song_id = #{songId},
             </if>
-            <if test="name != null">
-                name = #{name},
+            <if test="songListId != null">
+                song_list_id = #{songListId},
             </if>
-            <if test="introduction != null">
-                introduction = #{introduction},
-            </if>
-            update_time = now(),
-            <if test="pic != null">
-                pic = #{pic},
-            </if>
-            <if test="lyric != null">
-                lyric = #{lyric},
-            </if>
-            <if test="url != null">
-                url = #{url},
-            </if>
+            
         </set>
         where id = #{id}
     </update>
 
     <delete id="delete" parameterType="java.lang.Integer">
-        delete from song
+        delete from list_song
         where id=#{id}
     </delete>
 
-    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Blob_Column_List"/>
-        from song
+        <include refid="Base_Column_List"/>
+        from list_song
         where id=#{id}
     </select>
 
-    <select id="allSong" resultMap="ResultMapWithBLOBs">
+    <select id="allListSong" resultMap="BaseResultMap">
         select
-        <include refid="Blob_Column_List"/>
-        from song
+        <include refid="Base_Column_List"/>
+        from list_song
     </select>
 
-    <select id="songOfName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    <select id="listSongOfSongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Blob_Column_List"/>
-        from song
-        where name like #{name}
+        <include refid="Base_Column_List"/>
+        from list_song
+        where song_list_id = #{songListId}
     </select>
 
-    <select id="songOfSingerId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-        select
-        <include refid="Blob_Column_List"/>
-        from song
-        where singer_id = #{singerId}
-    </select>
+    <delete id="deleteBySongIdAndSongListId" parameterType="java.lang.Integer">
+        delete from list_song
+        where  song_id=#{songId} and song_list_id=#{songListId}
+    </delete>
 
 </mapper>

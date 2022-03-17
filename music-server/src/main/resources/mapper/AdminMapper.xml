@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.music.dao.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.cjy.music.domain.Admin" >
+<!-- jdbcType指的是数据库里边的字段类型，property指的是daomain里边的java实体类-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+<!--它可以将查询到的复杂数据（比如查询到几个表中数据）
+映射到一个结果集当中。如在实际应用中，有一个表为（用户角色表），
+通过查询用户表信息展示页面，在（用户表）中存在用户角色表 id ，
+在实际列表页的展示中，用户关注的是用户角色名称，而不是角色 id。
+解决此类问题可以通过 resultMap 来映射自定义结果。
+ 使用 resultMap 做自定义结果映射，字段名可以不一致，
+并且还可以指定要显示的列，比较灵活，应用也广泛(推荐使用)。-->
+    </resultMap>
+
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select  count(*) from  admin where name=#{username} and password=#{password}
+    </select>
+</mapper>

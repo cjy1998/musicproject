@@ -3,13 +3,23 @@
 
 .login {
   position: absolute;
-  margin-left: 850px;
+  margin-left: 40%;
   width: 300px;
-  height: 210px;
+  // height: 300px;
   top: $header-height + 60px;
   padding: 30px 50px;
   border-radius: 10px;
-  background-color: $color-white;
+
+  // background-color: #f0f0f4;
+  box-shadow:
+  1.6px 4.2px 3.9px rgba(0, 0, 0, 0.047),
+  4px 10.5px 9.8px rgba(0, 0, 0, 0.067),
+  8.2px 21.4px 20px rgba(0, 0, 0, 0.083),
+  16.8px 44.2px 41.2px rgba(0, 0, 0, 0.103),
+  46px 121px 113px rgba(0, 0, 0, 0.15)
+;
+
+
 
   .login-head {
     text-align: center;
@@ -24,5 +34,7 @@
       display: block;
       width: 50%;
     }
+
+    
   }
 }
